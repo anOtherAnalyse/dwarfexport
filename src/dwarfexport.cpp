@@ -17,7 +17,7 @@
 
 static bool has_decompiler = false;
 std::ofstream logger;
-hexdsp_t *hexdsp = NULL;
+int hexdsp = NULL;
 
 // A mapping of IDA types to dwarf types
 using type_record_t = std::map<tinfo_t, Dwarf_P_Die>;
@@ -781,7 +781,7 @@ void add_debug_info(std::shared_ptr<DwarfGenInfo> info,
   add_structures(dbg, cu, record);
 }
 
-int idaapi init(void) {
+plugmod_t* idaapi init(void) {
   if (init_hexrays_plugin()) {
     msg("dwarfexport: Using decompiler\n");
     has_decompiler = true;
